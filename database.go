@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/gosimple/slug"
+	"strings"
 	"time"
 )
 
@@ -157,9 +158,14 @@ func (app *application) updateFileNamesForHoldings() error {
 		if err != nil {
 			return err
 		}
-		s := slug.Make(name)
 		stmt := "update holding_files set file_name = $1 where id = $2"
-		_, err = app.db.ExecContext(ctx, stmt, s, id)
+
+		oldDisplayName := name
+		last4 := oldDisplayName[len(oldDisplayName)-4:]
+		rootName := strings.TrimSuffix(oldDisplayName, last4)
+		newFileName := fmt.Sprintf("%s%s", slug.Make(rootName), last4)
+
+		_, err = app.db.ExecContext(ctx, stmt, newFileName, id)
 		if err != nil {
 			return err
 		}
@@ -271,9 +277,15 @@ func (app *application) updateFileNamesForPublications() error {
 		if err != nil {
 			return err
 		}
-		s := slug.Make(name)
+
 		stmt := "update publication_files set file_name = $1 where id = $2"
-		_, err = app.db.ExecContext(ctx, stmt, s, id)
+
+		oldDisplayName := name
+		last4 := oldDisplayName[len(oldDisplayName)-4:]
+		rootName := strings.TrimSuffix(oldDisplayName, last4)
+		newFileName := fmt.Sprintf("%s%s", slug.Make(rootName), last4)
+
+		_, err = app.db.ExecContext(ctx, stmt, newFileName, id)
 		if err != nil {
 			return err
 		}
@@ -385,9 +397,14 @@ func (app *application) updateFileNamesForProjects() error {
 		if err != nil {
 			return err
 		}
-		s := slug.Make(name)
 		stmt := "update project_files set file_name = $1 where id = $2"
-		_, err = app.db.ExecContext(ctx, stmt, s, id)
+
+		oldDisplayName := name
+		last4 := oldDisplayName[len(oldDisplayName)-4:]
+		rootName := strings.TrimSuffix(oldDisplayName, last4)
+		newFileName := fmt.Sprintf("%s%s", slug.Make(rootName), last4)
+
+		_, err = app.db.ExecContext(ctx, stmt, newFileName, id)
 		if err != nil {
 			return err
 		}

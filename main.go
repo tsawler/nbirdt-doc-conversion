@@ -8,6 +8,7 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"strings"
 
 	_ "github.com/jackc/pgconn" // need this and next two for pgx
 	_ "github.com/jackc/pgx/v4"
@@ -110,7 +111,11 @@ func main() {
 		CreateDirIfNotExist(fmt.Sprintf("./ui/static/site-content/files/holding-documents/%s-%d", folderName, x.HoldingID))
 		destinationFolder := fmt.Sprintf("%s-%d", folderName, x.HoldingID)
 		sourceFile := fmt.Sprintf("./client/clienthandlers/files/holdings/%d/%s", x.HoldingID, x.FileName)
-		destinationFile := fmt.Sprintf("./ui/static/site-content/files/holding-documents/%s/%s", destinationFolder, slug.Make(x.FileNameDisplay))
+		oldDisplayName := x.FileNameDisplay
+		last4 := oldDisplayName[len(oldDisplayName)-4:]
+		rootName := strings.TrimSuffix(oldDisplayName, last4)
+		newFileName := fmt.Sprintf("%s%s", slug.Make(rootName), last4)
+		destinationFile := fmt.Sprintf("./ui/static/site-content/files/holding-documents/%s/%s", destinationFolder, newFileName)
 
 		// copy file
 		input, err := ioutil.ReadFile(sourceFile)
@@ -142,7 +147,11 @@ func main() {
 		CreateDirIfNotExist(fmt.Sprintf("./ui/static/site-content/files/publication-documents/%s-%d", folderName, x.PublicationID))
 		destinationFolder := fmt.Sprintf("%s-%d", folderName, x.PublicationID)
 		sourceFile := fmt.Sprintf("./client/clienthandlers/files/publications/%d/%s", x.PublicationID, x.FileName)
-		destinationFile := fmt.Sprintf("./ui/static/site-content/files/publication-documents/%s/%s", destinationFolder, slug.Make(x.FileNameDisplay))
+		oldDisplayName := x.FileNameDisplay
+		last4 := oldDisplayName[len(oldDisplayName)-4:]
+		rootName := strings.TrimSuffix(oldDisplayName, last4)
+		newFileName := fmt.Sprintf("%s%s", slug.Make(rootName), last4)
+		destinationFile := fmt.Sprintf("./ui/static/site-content/files/publication-documents/%s/%s", destinationFolder, newFileName)
 
 		// copy file
 		input, err := ioutil.ReadFile(sourceFile)
@@ -174,7 +183,11 @@ func main() {
 		CreateDirIfNotExist(fmt.Sprintf("./ui/static/site-content/files/project-documents/%s-%d", folderName, x.ProjectID))
 		destinationFolder := fmt.Sprintf("%s-%d", folderName, x.ProjectID)
 		sourceFile := fmt.Sprintf("./client/clienthandlers/files/projects/%d/%s", x.ProjectID, x.FileName)
-		destinationFile := fmt.Sprintf("./ui/static/site-content/files/project-documents/%s/%s", destinationFolder, slug.Make(x.FileNameDisplay))
+		oldDisplayName := x.FileNameDisplay
+		last4 := oldDisplayName[len(oldDisplayName)-4:]
+		rootName := strings.TrimSuffix(oldDisplayName, last4)
+		newFileName := fmt.Sprintf("%s%s", slug.Make(rootName), last4)
+		destinationFile := fmt.Sprintf("./ui/static/site-content/files/project-documents/%s/%s", destinationFolder, newFileName)
 
 		// copy file
 		input, err := ioutil.ReadFile(sourceFile)
