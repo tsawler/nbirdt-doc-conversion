@@ -51,7 +51,7 @@ following logic:
     Old filename: random_string_of_characters.extension
     New filename: slugified-version-of-display-name.original_extension
 
-Example: a holding might have a file with the following characteristics:
+Example: a data holding might have a file with the following characteristics:
 
     Data Holding Name: Some Holding
     Display Name: 2020 Final Report for Really Important Project.pdf
