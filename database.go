@@ -136,6 +136,39 @@ func (app *application) getAllHoldingDocs() ([]HoldingFile, error) {
 	return files, nil
 }
 
+func (app *application) updateFileNamesForHoldings() error {
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	defer cancel()
+
+	// get docs
+	q := `select id, file_name_display from holding_files order by id`
+
+	rows, err := app.db.QueryContext(ctx, q)
+
+	if err != nil {
+		fmt.Println(err)
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		var id int
+		var name string
+		err := rows.Scan(&id, &name)
+		if err != nil {
+			return err
+		}
+		s := slug.Make(name)
+		stmt := "update holding_files set file_name = $1 where id = $2"
+		_, err = app.db.ExecContext(ctx, stmt, s, id)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
+
+}
+
 func (app *application) addSlugToPublications() error {
 	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
 	defer cancel()
@@ -217,6 +250,38 @@ func (app *application) getAllPublicationDocs() ([]PublicationFile, error) {
 	return files, nil
 }
 
+func (app *application) updateFileNamesForPublications() error {
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	defer cancel()
+
+	// get docs
+	q := `select id, file_name_display from publication_files order by id`
+
+	rows, err := app.db.QueryContext(ctx, q)
+
+	if err != nil {
+		fmt.Println(err)
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		var id int
+		var name string
+		err := rows.Scan(&id, &name)
+		if err != nil {
+			return err
+		}
+		s := slug.Make(name)
+		stmt := "update publication_files set file_name = $1 where id = $2"
+		_, err = app.db.ExecContext(ctx, stmt, s, id)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
+
+}
 
 func (app *application) addSlugToProjects() error {
 	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
@@ -297,4 +362,37 @@ func (app *application) getAllProjectDocs() ([]ProjectFile, error) {
 	}
 
 	return files, nil
+}
+
+func (app *application) updateFileNamesForProjects() error {
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	defer cancel()
+
+	// get docs
+	q := `select id, file_name_display from project_files order by id`
+
+	rows, err := app.db.QueryContext(ctx, q)
+
+	if err != nil {
+		fmt.Println(err)
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		var id int
+		var name string
+		err := rows.Scan(&id, &name)
+		if err != nil {
+			return err
+		}
+		s := slug.Make(name)
+		stmt := "update project_files set file_name = $1 where id = $2"
+		_, err = app.db.ExecContext(ctx, stmt, s, id)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
+
 }

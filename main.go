@@ -110,7 +110,7 @@ func main() {
 		CreateDirIfNotExist(fmt.Sprintf("./ui/static/site-content/files/holding-documents/%s-%d", folderName, x.HoldingID))
 		destinationFolder := fmt.Sprintf("%s-%d", folderName, x.HoldingID)
 		sourceFile := fmt.Sprintf("./client/clienthandlers/files/holdings/%d/%s", x.HoldingID, x.FileName)
-		destinationFile := fmt.Sprintf("./ui/static/site-content/files/holding-documents/%s/%s", destinationFolder, x.FileName)
+		destinationFile := fmt.Sprintf("./ui/static/site-content/files/holding-documents/%s/%s", destinationFolder, slug.Make(x.FileNameDisplay))
 
 		// copy file
 		input, err := ioutil.ReadFile(sourceFile)
@@ -142,7 +142,7 @@ func main() {
 		CreateDirIfNotExist(fmt.Sprintf("./ui/static/site-content/files/publication-documents/%s-%d", folderName, x.PublicationID))
 		destinationFolder := fmt.Sprintf("%s-%d", folderName, x.PublicationID)
 		sourceFile := fmt.Sprintf("./client/clienthandlers/files/publications/%d/%s", x.PublicationID, x.FileName)
-		destinationFile := fmt.Sprintf("./ui/static/site-content/files/publication-documents/%s/%s", destinationFolder, x.FileName)
+		destinationFile := fmt.Sprintf("./ui/static/site-content/files/publication-documents/%s/%s", destinationFolder, slug.Make(x.FileNameDisplay))
 
 		// copy file
 		input, err := ioutil.ReadFile(sourceFile)
@@ -174,7 +174,7 @@ func main() {
 		CreateDirIfNotExist(fmt.Sprintf("./ui/static/site-content/files/project-documents/%s-%d", folderName, x.ProjectID))
 		destinationFolder := fmt.Sprintf("%s-%d", folderName, x.ProjectID)
 		sourceFile := fmt.Sprintf("./client/clienthandlers/files/projects/%d/%s", x.ProjectID, x.FileName)
-		destinationFile := fmt.Sprintf("./ui/static/site-content/files/project-documents/%s/%s", destinationFolder, x.FileName)
+		destinationFile := fmt.Sprintf("./ui/static/site-content/files/project-documents/%s/%s", destinationFolder, slug.Make(x.FileNameDisplay))
 
 		// copy file
 		input, err := ioutil.ReadFile(sourceFile)
@@ -187,6 +187,22 @@ func main() {
 			fmt.Println("Error creating", destinationFile)
 			fmt.Println(err)
 		}
+	}
+
+	// update database
+	err = app.updateFileNamesForHoldings()
+	if err != nil {
+		errorLog.Println(err)
+	}
+
+	err = app.updateFileNamesForProjects()
+	if err != nil {
+		errorLog.Println(err)
+	}
+
+	err = app.updateFileNamesForPublications()
+	if err != nil {
+		errorLog.Println(err)
 	}
 
 	infoLog.Println("Done!")
