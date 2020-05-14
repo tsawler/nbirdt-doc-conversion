@@ -53,9 +53,13 @@ following logic:
 
 Example: a holding might have a file with the following characteristics:
 
+    Data Holding Name: Some Holding
     Display Name: 2020 Final Report for Really Important Project.pdf
     Actual file name: dgr1gw54tgrdafsdgyretwgrgreagfr.pdf
+    File is located in: ./client/clienthandlers/files/holdings/12
+    
     Newly created name: 2020-final-report-for-really-important-project.pdf
+    New location: ./ui/static/site-content/files/holdings/some-holding-12
 
 Note that the display name will not change, and that the file actually downloaded to the user's system will be the
 original display name. We slugify the actual file name so as to avoid problems with accents, non-standard characters, 
