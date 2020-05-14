@@ -16,7 +16,7 @@ env GOOS=linux GOARCH=amd64  go build -o migrateDocs *.go
 ~~~
 
 
-2: Copy the file to the **root directory** of the NBIRDT application.
+2: Copy the file to the **root directory** of the NBIRDT **staging** application.
 
 3: Run with flags:
 
@@ -26,6 +26,14 @@ env GOOS=linux GOARCH=amd64  go build -o migrateDocs *.go
 
 where `username` and `password` are the db credentials, and `ssl` is the Postgres SSL setting
 (e.g. disable).
+
+4: Verify that everything works.
+
+5: Copy the file to the **root directory** of the **live** NBIRDT application.
+
+6: Create a backup of the existing application (via dashboard).
+
+7: Repeat steps 3 & 4, above, for the live app.
 
 Once the migration is complete and has been verified, the directory `./client/clientahandlers/files` can
 be deleted.
