@@ -24,7 +24,7 @@ env GOOS=linux GOARCH=amd64  go build -o migrateDocs *.go
 ./migrateDocs -u username -p password -s ssl
 ~~~
 
-where `<username>` and `<password>` are the db credentials, and `<ssl>` is the Postgres SSL setting
+where `username` and `password` are the db credentials, and `ssl` is the Postgres SSL setting
 (e.g. disable).
 
 Once the migration is complete and has been verified, the directory `./client/clientahandlers/files` can
