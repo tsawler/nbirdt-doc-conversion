@@ -40,7 +40,12 @@ The files were previously stored in `./client/clienthandlers/files/[id]/[filenam
 the associated publication/holding/project, and `[filename]` as a randomly generated string, so as to avoid
 name collisions.
 
-This application moves all of the files to `./ui/static/site-content-files`, and also renames the files using the 
+This application moves all of the files to `./ui/static/site-content-files/files/[category/[name-id]`, where
+`[category]` is one of publications, holdings, or projects, and `[name-id]` is a slugified version of the 
+original name of the publication/project/holding, followed by its id from the database, so as to avoid name
+collisions.
+ 
+The application also renames the files using the 
 following logic:
 
 Old filename: `random_string_of_characters.extension`
