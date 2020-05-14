@@ -55,9 +55,9 @@ func main() {
 	dsn := ""
 
 	if *dbPass == "" {
-		dsn = fmt.Sprintf("host=%s port=%s user=%s dbname=%s sslmode=%s timezone=UTC connect_timeout=5", dbHost, dbPort, dbUser, databaseName, dbSsl)
+		dsn = fmt.Sprintf("host=%s port=%s user=%s dbname=%s sslmode=%s timezone=UTC connect_timeout=5", dbHost, dbPort, *dbUser, databaseName, *dbSsl)
 	} else {
-		dsn = fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=%s timezone=UTC connect_timeout=5", dbHost, dbPort, dbUser, dbPass, databaseName, dbSsl)
+		dsn = fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=%s timezone=UTC connect_timeout=5", dbHost, dbPort, *dbUser, *dbPass, databaseName, *dbSsl)
 	}
 
 	// open connection to db
