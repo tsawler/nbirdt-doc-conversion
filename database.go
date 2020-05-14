@@ -161,8 +161,9 @@ func (app *application) updateFileNamesForHoldings() error {
 		stmt := "update holding_files set file_name = $1 where id = $2"
 
 		oldDisplayName := name
-		last4 := oldDisplayName[len(oldDisplayName)-4:]
-		rootName := strings.TrimSuffix(oldDisplayName, last4)
+		dot := strings.LastIndex(oldDisplayName, ".")
+		rootName := oldDisplayName[0:dot]
+		last4 := oldDisplayName[dot:len(oldDisplayName)]
 		newFileName := fmt.Sprintf("%s%s", slug.Make(rootName), last4)
 
 		_, err = app.db.ExecContext(ctx, stmt, newFileName, id)
@@ -281,8 +282,9 @@ func (app *application) updateFileNamesForPublications() error {
 		stmt := "update publication_files set file_name = $1 where id = $2"
 
 		oldDisplayName := name
-		last4 := oldDisplayName[len(oldDisplayName)-4:]
-		rootName := strings.TrimSuffix(oldDisplayName, last4)
+		dot := strings.LastIndex(oldDisplayName, ".")
+		rootName := oldDisplayName[0:dot]
+		last4 := oldDisplayName[dot:len(oldDisplayName)]
 		newFileName := fmt.Sprintf("%s%s", slug.Make(rootName), last4)
 
 		_, err = app.db.ExecContext(ctx, stmt, newFileName, id)
@@ -400,8 +402,9 @@ func (app *application) updateFileNamesForProjects() error {
 		stmt := "update project_files set file_name = $1 where id = $2"
 
 		oldDisplayName := name
-		last4 := oldDisplayName[len(oldDisplayName)-4:]
-		rootName := strings.TrimSuffix(oldDisplayName, last4)
+		dot := strings.LastIndex(oldDisplayName, ".")
+		rootName := oldDisplayName[0:dot]
+		last4 := oldDisplayName[dot:len(oldDisplayName)]
 		newFileName := fmt.Sprintf("%s%s", slug.Make(rootName), last4)
 
 		_, err = app.db.ExecContext(ctx, stmt, newFileName, id)

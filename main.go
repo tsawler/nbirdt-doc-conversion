@@ -112,8 +112,9 @@ func main() {
 		destinationFolder := fmt.Sprintf("%s-%d", folderName, x.HoldingID)
 		sourceFile := fmt.Sprintf("./client/clienthandlers/files/holdings/%d/%s", x.HoldingID, x.FileName)
 		oldDisplayName := x.FileNameDisplay
-		last4 := oldDisplayName[len(oldDisplayName)-4:]
-		rootName := strings.TrimSuffix(oldDisplayName, last4)
+		dot := strings.LastIndex(oldDisplayName, ".")
+		rootName := oldDisplayName[0:dot]
+		last4 := oldDisplayName[dot:len(oldDisplayName)]
 		newFileName := fmt.Sprintf("%s%s", slug.Make(rootName), last4)
 		destinationFile := fmt.Sprintf("./ui/static/site-content/files/holding-documents/%s/%s", destinationFolder, newFileName)
 
@@ -148,8 +149,9 @@ func main() {
 		destinationFolder := fmt.Sprintf("%s-%d", folderName, x.PublicationID)
 		sourceFile := fmt.Sprintf("./client/clienthandlers/files/publications/%d/%s", x.PublicationID, x.FileName)
 		oldDisplayName := x.FileNameDisplay
-		last4 := oldDisplayName[len(oldDisplayName)-4:]
-		rootName := strings.TrimSuffix(oldDisplayName, last4)
+		dot := strings.LastIndex(oldDisplayName, ".")
+		rootName := oldDisplayName[0:dot]
+		last4 := oldDisplayName[dot:len(oldDisplayName)]
 		newFileName := fmt.Sprintf("%s%s", slug.Make(rootName), last4)
 		destinationFile := fmt.Sprintf("./ui/static/site-content/files/publication-documents/%s/%s", destinationFolder, newFileName)
 
@@ -184,8 +186,9 @@ func main() {
 		destinationFolder := fmt.Sprintf("%s-%d", folderName, x.ProjectID)
 		sourceFile := fmt.Sprintf("./client/clienthandlers/files/projects/%d/%s", x.ProjectID, x.FileName)
 		oldDisplayName := x.FileNameDisplay
-		last4 := oldDisplayName[len(oldDisplayName)-4:]
-		rootName := strings.TrimSuffix(oldDisplayName, last4)
+		dot := strings.LastIndex(oldDisplayName, ".")
+		rootName := oldDisplayName[0:dot]
+		last4 := oldDisplayName[dot:len(oldDisplayName)]
 		newFileName := fmt.Sprintf("%s%s", slug.Make(rootName), last4)
 		destinationFile := fmt.Sprintf("./ui/static/site-content/files/project-documents/%s/%s", destinationFolder, newFileName)
 
