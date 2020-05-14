@@ -36,7 +36,7 @@ Previously, all documents associated with publications, holdings, and projects w
 document root for the web application, so as to avoid inadvertent indexing by search engines for anything
 that was under embargo.
 
-The files were stored in `./client/clienthandlers/files/[id]/[filename]`, where `[id]` was the primary key for
+The files were previously stored in `./client/clienthandlers/files/[id]/[filename]`, where `[id]` was the primary key for
 the associated publication/holding/project, and `[filename]` as a randomly generated string, so as to avoid
 name collisions.
 
