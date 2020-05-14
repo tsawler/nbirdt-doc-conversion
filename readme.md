@@ -5,3 +5,24 @@ A one shot program to migrate files for publications, data holdings, and project
 
 
 **Important** - run the migrations to add the `slug` field to the three db tables first!
+
+
+## Usage
+
+1: Generate the binary:
+
+~~~
+env GOOS=linux GOARCH=amd64  go build -o migrateDocs *.go
+~~~
+
+
+2: Run with flags:
+
+~~~bash
+./migrateDocs -u <username> -p <password>
+~~~
+
+where `<username>` and `<password>` are the db credentials
+
+
+Done.
