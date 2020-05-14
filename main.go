@@ -44,10 +44,10 @@ func main() {
 
 	dbUser := flag.String("u", "", "DB Username")
 	dbPass := flag.String("p", "", "DB Password")
-	dbSsl := flag.String("s", "", "SSL Settings")
+	dbSsl := flag.String("s", "disable", "SSL Settings")
 	flag.Parse()
 
-	if *dbUser == "" || *dbSsl == "" {
+	if *dbUser == "" {
 		fmt.Println("Missing required flags.")
 		os.Exit(1)
 	}
