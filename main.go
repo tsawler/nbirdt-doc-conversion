@@ -38,16 +38,30 @@ func main() {
 
 	dbHost := "127.0.01"
 	dbPort := "5432"
-	dbUser := "tcs"
 	databaseName := "nbirdt"
-	dbSsl := "disable"
 
 	// read flags
-	dsn := flag.String("dsn", fmt.Sprintf("host=%s port=%s user=%s dbname=%s sslmode=%s timezone=UTC connect_timeout=5", dbHost, dbPort, dbUser, databaseName, dbSsl), "PG data source name")
+
+	dbUser := flag.String("u", "", "DB Username")
+	dbPass := flag.String("p", "", "DB Password")
+	dbSsl := flag.String("s", "", "SSL Settings")
 	flag.Parse()
 
+	if *dbUser == "" || *dbSsl == "" {
+		fmt.Println("Missing required flags.")
+		os.Exit(1)
+	}
+
+	dsn := ""
+
+	if *dbPass == "" {
+		dsn = fmt.Sprintf("host=%s port=%s user=%s dbname=%s sslmode=%s timezone=UTC connect_timeout=5", dbHost, dbPort, dbUser, databaseName, dbSsl)
+	} else {
+		dsn = fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=%s timezone=UTC connect_timeout=5", dbHost, dbPort, dbUser, dbPass, databaseName, dbSsl)
+	}
+
 	// open connection to db
-	db, err := openDB(*dsn)
+	db, err := openDB(dsn)
 	if err != nil {
 		errorLog.Fatal(err)
 	}
