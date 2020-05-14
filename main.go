@@ -41,7 +41,6 @@ func main() {
 	databaseName := "nbirdt"
 
 	// read flags
-
 	dbUser := flag.String("u", "", "DB Username")
 	dbPass := flag.String("p", "", "DB Password")
 	dbSsl := flag.String("s", "disable", "SSL Settings")
