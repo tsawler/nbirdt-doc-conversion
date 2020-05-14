@@ -16,7 +16,9 @@ env GOOS=linux GOARCH=amd64  go build -o migrateDocs *.go
 ~~~
 
 
-2: Run with flags:
+2: Copy the file to the **root directory** of the NBIRDT application.
+
+3: Run with flags:
 
 ~~~bash
 ./migrateDocs -u <username> -p <password>
