@@ -21,10 +21,11 @@ env GOOS=linux GOARCH=amd64  go build -o migrateDocs *.go
 3: Run with flags:
 
 ~~~bash
-./migrateDocs -u <username> -p <password>
+./migrateDocs -u username -p password -s ssl
 ~~~
 
-where `<username>` and `<password>` are the db credentials
+where `<username>` and `<password>` are the db credentials, and `<ssl>` is the Postgres SSL setting
+(e.g. disable).
 
-
-Done.
+Once the migration is complete and has been verified, the directory `./client/clientahandlers/files` can
+be deleted.
