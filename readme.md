@@ -48,17 +48,14 @@ collisions.
 The application also renames the files using the 
 following logic:
 
-    Old filename: `random_string_of_characters.extension`
-    
-    New filename: `slugified-version-of-display-name.original_extension`
+    Old filename: random_string_of_characters.extension
+    New filename: slugified-version-of-display-name.original_extension
 
 Example: a holding might have a file with the following characteristics:
 
-    Display Name: `2020 Final Report for Really Important Project.pdf`
-    
-    Actual file name: `dgr1gw54tgrdafsdgyretwgrgreagfr.pdf`
-    
-    Newly created name: `2020-final-report-for-really-important-project.pdf`
+    Display Name: 2020 Final Report for Really Important Project.pdf
+    Actual file name: dgr1gw54tgrdafsdgyretwgrgreagfr.pdf
+    Newly created name: 2020-final-report-for-really-important-project.pdf
 
 Note that the display name will not change, and that the file actually downloaded to the user's system will be the
 original display name. We slugify the actual file name so as to avoid problems with accents, non-standard characters, 
