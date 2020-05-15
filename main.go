@@ -37,17 +37,17 @@ func main() {
 	infoLog := log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
 	errorLog := log.New(os.Stderr, "ERROR\t", log.Ldate|log.Ltime|log.Lshortfile)
 
-	dbHost := "127.0.01"
+	dbHost := "127.0.0.1"
 	dbPort := "5432"
-	databaseName := "nbirdt"
 
 	// read flags
 	dbUser := flag.String("u", "", "DB Username")
 	dbPass := flag.String("p", "", "DB Password")
 	dbSsl := flag.String("s", "disable", "SSL Settings")
+	databaseName := flag.String("db", "", "database name")
 	flag.Parse()
 
-	if *dbUser == "" {
+	if *dbUser == "" || *databaseName == "" {
 		fmt.Println("Missing required flags.")
 		os.Exit(1)
 	}
@@ -55,9 +55,9 @@ func main() {
 	dsn := ""
 
 	if *dbPass == "" {
-		dsn = fmt.Sprintf("host=%s port=%s user=%s dbname=%s sslmode=%s timezone=UTC connect_timeout=5", dbHost, dbPort, *dbUser, databaseName, *dbSsl)
+		dsn = fmt.Sprintf("host=%s port=%s user=%s dbname=%s sslmode=%s timezone=UTC connect_timeout=5", dbHost, dbPort, *dbUser, *databaseName, *dbSsl)
 	} else {
-		dsn = fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=%s timezone=UTC connect_timeout=5", dbHost, dbPort, *dbUser, *dbPass, databaseName, *dbSsl)
+		dsn = fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=%s timezone=UTC connect_timeout=5", dbHost, dbPort, *dbUser, *dbPass, *databaseName, *dbSsl)
 	}
 
 	// open connection to db
